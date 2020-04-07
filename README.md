@@ -23,9 +23,8 @@ Overview: Code to process CT scans of concrete into .stl files.
 		1. MATLAB (version used was 2019b)
 		2. Image Batch Processor App (part of Image Processing and Computer Vision package)
 
-<h2> Other Programs: </h2>
-1. Fiji- ImageJ distribution with many plugins for scientific analysis
-2. (Optional) Meshmixer
+Other programs:
++ Fiji- ImageJ distribution with many plugins for scientific analysis
++ (Optional) Meshmixer
 
 Note: Detailed description of the functions of each code is described in comments
-	

@@ -20,7 +20,7 @@ def image_split(image, mainPath, image_name, cnts):
     image = cv2.imread(image)
     original = image.copy()
     
-    #create directories
+    #create output directories
     outpath = os.path.join(mainPath, "Final Images")
     outpath_bl = os.path.join(outpath, "bottom_left")
     outpath_br = os.path.join(outpath, "bottom_right")
@@ -34,11 +34,11 @@ def image_split(image, mainPath, image_name, cnts):
         os.makedirs(outpath_tr)
 
     #Iterate thorugh contours and returns split images
-    thold_area = 5000
+    thold_area = 5000 #area of image quadrants
     image_number = 1
     for c in cnts:
         area = cv2.contourArea(c)         
-        if area > thold_area:  
+        if area > thold_area: #filters out small objects
             rect = cv2.minAreaRect(c)
             box = np.int0(cv2.boxPoints(rect))
             width = int(rect[1][0])
@@ -60,11 +60,12 @@ def image_split(image, mainPath, image_name, cnts):
                 cv2.imwrite((os.path.join(outpath_tr, "tr_{}".format(image_name))), warped)
                 image_number = 1
             image_number += 1
-
+        
+#main function
 def master(inPath, mainPath, species_image):
     cnts = get_contours(species_image)
     for image_name in os.listdir(inPath):  #reads all images in input folder, inPath
         input_path = os.path.join(inPath, image_name)
         image_split(input_path, mainPath, image_name, cnts)
 
-master(r"D:\VIP\All\6", r"D:\VIP\2", r"D:\VIP\All\6\top0076.tif")
+master(r"path\to\folder", r"path\to\output\folder", r"path\to\ideal\image")

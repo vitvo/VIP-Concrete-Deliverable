@@ -46,16 +46,19 @@ bw = bwareaopen(bw, pixelAreaToRemove);
 bw = ~bwareaopen(~bw, 500);
 
 %find connected components for separation
-D = bwdist(~bw);
+D = bwdist(~bw); %compute distance transformation
 D = imcomplement(D);
-l = watershed(D);
+l = watershed(D); %watershed transformation
 bw2 = bw;
 bw2(l == 0) = 0;
+%binary image is segmented at every minimum (oversegmented)
+%so we use minima imposition
 mask = imextendedmin(D, 3);
 D2 = imimposemin(D, mask);
 L2 = watershed(D2);
 bw3 = bw;
 bw3(L2 == 0) = 0;
+%increase watershed line width from 1px to 3px
 bw4 = imerode(bw3, strel('disk', 1))
 
 
